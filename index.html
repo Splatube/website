@@ -19,52 +19,13 @@
     p {
       font-size: clamp(1rem, 2.5vw, 2rem);
     }
-    /* --- Status box styles --- */
-    #statusBox {
-      display: inline-block;
-      margin: 20px auto;
-      padding: 15px 25px;
-      border-radius: 10px;
-      background: #222;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 0 10px #000;
-    }
-    .online {
-      color: #4cff4c;
-    }
-    .offline {
-      color: #ff4c4c;
-    }
   </style>
 </head>
 <body>
   <h1>Welcome.</h1>
-  <div id="statusBox">Checking server...</div>
-
+  
   <p>I bought this website because it was dirt cheap and hella funny, dont question it</p>
   <p>Take this cool art of me and my girlfriend while you're here (made by LanCaster)</p>
   <img style="width:70%" src="cute.png">
-
-  <script>
-    async function fetchStatus() {
-      try {
-        const res = await fetch("https://api.mcsrvstat.us/3/mc.splatube.gay");
-        const data = await res.json();
-        const statusBox = document.getElementById("statusBox");
-
-        if (data.online) {
-          statusBox.innerHTML = `✓ <span class="online">Online</span> – ${data.players.online}/${data.players.max} players`;
-        } else {
-          statusBox.innerHTML = `⨉ <span class="offline">Offline</span>`;
-        }
-      } catch {
-        document.getElementById("statusBox").innerHTML = `⚠️ <span class="offline">Error checking status</span>`;
-      }
-    }
-
-    fetchStatus();
-    setInterval(fetchStatus, 60000); // update every 60s
-  </script>
 </body>
 </html>
