@@ -2,31 +2,116 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Splatube 2</title>
-  <link rel="icon" type="image/png" href="fop.png">
+  <title>Server Status</title>
+  <link rel="icon" type="image/png" href="/fop.png">
   <style>
     body {
-      background-color: black;
+      background-color: #111;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      padding-top: 80px;
     }
-    img {
-      width: 70vw;
-      height: 70vh;
-      object-fit: contain;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
     }
-    p {
-      font-size: clamp(1rem, 2.5vw, 2rem);
+    #statusBox {
+      display: inline-block;
+      padding: 25px 40px;
+      border-radius: 15px;
+      background: #222;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 0 15px #000;
+      transition: background 0.3s;
+    }
+    .online {
+      color: #4cff4c;
+    }
+    .offline {
+      color: #ff4c4c;
+    }
+    #playerList {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+    .player {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+    }
+    .player-icon  {
+      width: 2rem;
+      margin-right: 0.5rem;
+    }
+    #home {
+      position: fixed;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome again.</h1>
-  
-  <p>I bought this website because it was dirt cheap and hella funny, dont question it</p>
-  <a href="/home/index.html">Page 1</a>
-  <p>Take this cool art of this server im in (made by LanCaster)</p>
-  <img style="width:70%" src="skyforge.png">
+  <h6 id="home"><a href="/index.html">Home</a></h6>
+  <h1>Minecraft Server Status</h1>
+  <h2 id="ip"></h2>
+  <div id="statusBox">Checking server...</div>
+  <div id="playerList"></div>
+
+  <script>
+    async function fetchStatus() {
+      try {
+        const res = await fetch("https://api.mcsrvstat.us/3/bep.nodecraft.gg");
+        const data = await res.json();
+        console.log(data);
+        const ip = document.getElementById("ip");
+        const box = document.getElementById("statusBox");
+        const playerList = document.getElementById("playerList");
+
+        if (data.online) {
+          ip.innerText = data.hostname
+
+          box.innerHTML = `<span class="online">Online</span> – ${data.players.online}/${data.players.max} players`;
+          box.style.background = "#1a2f1a";
+
+          if (data.players.list && data.players.list.length > 0) {
+            playerList.innerHTML = `Online players:`;
+            for (const player of data.players.list) {
+              const div = document.createElement("div");
+              div.className = "player"
+
+              const img = document.createElement("img");
+              img.className = "player-icon";
+              img.src = `https://minotar.net/helm/${player.uuid}`;
+
+              const p = document.createElement("p");
+              p.className = "player-name";
+              p.innerText = player.name;
+
+              div.appendChild(img);
+              div.appendChild(p);
+              playerList.appendChild(div);
+            }
+          } else {
+            playerList.innerHTML = "No players online right now.";
+          }
+        } else {
+          box.innerHTML = `<span class="offline">Offline</span>`;
+          box.style.background = "#2f1a1a";
+          playerList.innerHTML = "";
+        }
+      } catch {
+        const box = document.getElementById("statusBox");
+        box.innerHTML = `<span class="offline">Error checking status</span>`;
+        box.style.background = "#2f1a1a";
+        document.getElementById("playerList").innerHTML = "";
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 60000); // refresh every 60s
+  </script>
 </body>
 </html>
