@@ -57,21 +57,24 @@
   <h6 id="home"><a href="/index.html">Home</a></h6>
   <h1>Minecraft Server Status</h1>
   <h2 id="ip"></h2>
+  <h2 id="motd"></h2>
   <div id="statusBox">Checking server...</div>
   <div id="playerList"></div>
 
   <script>
     async function fetchStatus() {
       try {
-        const res = await fetch("https://api.mcsrvstat.us/3/bep.nodecraft.gg");
+        const res = await fetch("https://api.mcsrvstat.us/3/goop.nodecraft.gg");
         const data = await res.json();
         console.log(data);
         const ip = document.getElementById("ip");
+        const motd = document.getElementById("motd");
         const box = document.getElementById("statusBox");
         const playerList = document.getElementById("playerList");
 
         if (data.online) {
           ip.innerText = data.hostname
+          motd.innerText = data.motd.clean
 
           box.innerHTML = `<span class="online">Online</span> – ${data.players.online}/${data.players.max} players`;
           box.style.background = "#1a2f1a";
