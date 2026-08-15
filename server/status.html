@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Server Status</title>
   <link rel="icon" type="image/png" href="/fop.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     body {
       background-color: #111;
@@ -15,6 +16,22 @@
     h1 {
       font-size: 2.5rem;
       margin-bottom: 30px;
+    }
+    #home {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      scale: 2;
+      color: white !important;
+    }
+    #icon_ip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+    }
+    #icon_name * {
+      margin: 10px;
     }
     #statusBox {
       display: inline-block;
@@ -47,16 +64,12 @@
       width: 2rem;
       margin-right: 0.5rem;
     }
-    #home {
-      position: fixed;
-      color: white;
-    }
   </style>
 </head>
 <body>
-  <h6 id="home"><a href="/index.html">Home</a></h6>
+  <a href="/index.html" id="home"><i class="material-icons">home</i></a>
   <h1>Minecraft Server Status</h1>
-  <h2 id="ip"></h2>
+  <a id="icon_ip"><img id="icon" alt="Server Icon"><h2 id="ip"></h2></a>
   <h2 id="motd"></h2>
   <div id="statusBox">Checking server...</div>
   <div id="playerList"></div>
@@ -64,15 +77,18 @@
   <script>
     async function fetchStatus() {
       try {
-        const res = await fetch("https://api.mcsrvstat.us/3/mc.hmsh.uk");
+        const res = await fetch("https://api.mcsrvstat.us/3/Shattered2.aternos.me");
         const data = await res.json();
         console.log(data);
+        const icon_ip = document.getElementById("icon_ip");
+        const icon = document.getElementById("icon");
         const ip = document.getElementById("ip");
         const motd = document.getElementById("motd");
         const box = document.getElementById("statusBox");
         const playerList = document.getElementById("playerList");
 
         if (data.online) {
+          icon.src = data.icon
           ip.innerText = data.hostname
           motd.innerText = data.motd.clean
 
@@ -101,6 +117,7 @@
             playerList.innerHTML = "No players online right now.";
           }
         } else {
+          icon_ip.remove()
           box.innerHTML = `<span class="offline">Offline</span>`;
           box.style.background = "#2f1a1a";
           playerList.innerHTML = "";
