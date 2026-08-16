@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Hmsh</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
   <link rel="icon" type="image/png" href="fop.png">
   <style>
     body {
@@ -16,19 +17,51 @@
       height: 70vh;
       object-fit: contain;
     }
-    p, a {
+    p {
       font-size: clamp(1rem, 2.5vw, 2rem) !important;
     }
     :link {
       color: white;
     }
+
+    .w3-sidebar.w3-bar-block {
+      display: none;
+      width: 15%;
+      background-color: #222222;
+    }
+    .w3-button.w3-teal.w3-xlarge {
+      position: absolute;
+      left: 10px;
+      background-color: #333333 !important;
+    }
+    .w3-button.w3-teal.w3-xlarge:hover {
+      background-color: white !important;
+    }
   </style>
 </head>
 <body>
+  <div class="w3-sidebar w3-bar-block" id="mySidebar">
+    <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+    <a href="index.html" class="w3-bar-item w3-button">Home</a>
+    <a href="custardcream.html" class="w3-bar-item w3-button">Custard Creams Index</a>
+  </div>
+
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+
   <h1>Welcome</h1>
   
   <p>I'll probably use this at some point</p>
   <p>Take this <a href="custardcream.html">Custard Cream</a> Cookie</p>
   <img src="CustardCreamCookie.png" alt="Custard Cream Cookie">
+
+  <script>
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+  </script>
 </body>
 </html>
