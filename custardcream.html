@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Custard Cream Index</title>
-  <link rel="icon" type="image/png" href="/fop.png">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="icon" type="image/png" href="fop.png">
   <style>
     body {
       background-color: black;
@@ -17,11 +18,42 @@
       width: 80%;
       height: 70%;
     }
+    .w3-sidebar.w3-bar-block {
+      display: none;
+      width: 15%;
+      background-color: #222222;
+    }
+    .w3-button.w3-teal.w3-xlarge {
+      position: absolute;
+      left: 0;
+      background-color: #333333 !important;
+    }
+    .w3-button.w3-teal.w3-xlarge:hover {
+      background-color: white !important;
+    }
   </style>
 </head>
 <body>
+  <div class="w3-sidebar w3-bar-block" id="mySidebar">
+    <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+    <a href="index.html" class="w3-bar-item w3-button">Home</a>
+    <a href="custardcream.html" class="w3-bar-item w3-button">Custard Creams Index</a>
+  </div>
+
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+
   <h1>Custard Cream Index</h1>
 
   <iframe  id="index" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT6B1_DuaKlOyMyQNp6XdBsKx3lzrHxaa-T18pBgaFv-jPNzkdh754hsA5eGhtyOR_s6He4fe3hylgy/pubhtml?gid=0&amp;single=true&amp;range=A1:K21&amp;widget=true&amp;headers=false"></iframe>
+
+  <script>
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+  </script>
 </body>
 </html>
