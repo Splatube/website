@@ -6,14 +6,31 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
   <script src="https://kit.fontawesome.com/5216ccf329.js"></script>
   <link rel="icon" type="image/png" href="fop.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      height: 100%
     }
-    img {
+    #header {
+      height: 300px;
+      width: 100%;
+      overflow: clip;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #banner {
+      width: 100%;
+    }
+    #title {
+      position: absolute;
+      width: 70%;
+    }
+    #custard-cream-cookie {
       width: 70vw;
       height: 70vh;
       object-fit: contain;
@@ -24,7 +41,6 @@
     :link {
       color: white;
     }
-
     .w3-sidebar.w3-bar-block {
       display: none;
       width: 15%;
@@ -32,7 +48,8 @@
     }
     .w3-button.w3-teal.w3-xlarge {
       position: absolute;
-      left: 10px;
+      top: 10px;
+      left: 25px;
       background-color: #333333 !important;
     }
     .w3-button.w3-teal.w3-xlarge:hover {
@@ -53,13 +70,18 @@
     <a href="mailto:suggestions@hmsh.uk" class="w3-bar-item" id="info">Give me suggestions to add to my website 🙏</a>
   </div>
 
-  <button class="w3-button w3-teal w3-xlarge w3-round-large" onclick="w3_open()">☰</button>
+  <div class="w3-container" id="header">
+    <img src="hmshuk.png" alt="hmsh.uk" id="title">
+    <img src="hmsh.png" alt="hmsh" id="banner">
+  </div>
+
+  <button class="w3-button w3-teal w3-xlarge w3-round-large" id="menu-button" onclick="w3_open()">☰</button>
 
   <h1>Welcome</h1>
   
   <p>I'll probably use this at some point</p>
   <p>Take this <a href="custardcreams.html">Custard Cream</a> Cookie</p>
-  <img src="CustardCreamCookie.png" alt="Custard Cream Cookie">
+  <img src="CustardCreamCookie.png" alt="Custard Cream Cookie" id="custard-cream-cookie">
 
   <script>
     function w3_open() {
