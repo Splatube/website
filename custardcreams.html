@@ -13,6 +13,21 @@
       font-family: Arial, sans-serif;
       text-align: center;
     }
+    #header {
+      height: 300px;
+      width: 100%;
+      overflow: clip;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #banner {
+      width: 100%;
+    }
+    #title {
+      position: absolute;
+      width: 70%;
+    }
     #index {
       position: absolute;
       left: 10%;
@@ -26,7 +41,8 @@
     }
     .w3-button.w3-teal.w3-xlarge {
       position: absolute;
-      left: 10px;
+      top: 10px;
+      left: 25px;
       background-color: #333333 !important;
     }
     .w3-button.w3-teal.w3-xlarge:hover {
@@ -46,6 +62,11 @@
     <a href="custardcreams.html" class="w3-bar-item w3-button">Custard Creams Index</a>
     <a href="https://share.hmsh.uk" class="w3-bar-item w3-button">File Share <i style="scale:80%" class='fas fa-external-link-alt'></i></a>
     <a href="mailto:suggestions@hmsh.uk" class="w3-bar-item" id="info">Give me suggestions to add to my website 🙏</a>
+  </div>
+
+  <div class="w3-container" id="header">
+    <img src="hmshuk.png" alt="hmsh.uk" id="title">
+    <img src="hmsh.png" alt="hmsh" id="banner">
   </div>
 
   <button class="w3-button w3-teal w3-xlarge w3-round-large" onclick="w3_open()">☰</button>
