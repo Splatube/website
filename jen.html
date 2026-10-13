@@ -30,7 +30,7 @@
             position: relative;
             width: 100%;
             min-height: 100vh;
-            padding-bottom: 1200px;
+            
             overflow: hidden;
             background: #141415;
             isolation: isolate;
@@ -190,11 +190,6 @@
     // Every image in the repository is included once. Positions are randomised
     // on each load, while the original image aspect ratios are preserved.
     const imageFiles = [
-        "CustardCreamCookie.png",
-        "fop.png",
-        "hmsh.png",
-        "hmshuk.png",
-        "img.png",
         "img_1.png",
         "img_2.png",
         "img_3.png",
@@ -233,8 +228,8 @@
     function placeImages() {
         container.replaceChildren();
         const stageWidth = stage.clientWidth;
-        const stageHeight = Math.max(window.innerHeight + 1200, 1600);
-        stage.style.minHeight = stageHeight + "px";
+        const stageHeight = stage.clientHeight;
+
 
         // Shuffle the list so images don't always appear in the same order.
         const shuffled = [...imageFiles].sort(() => Math.random() - 0.5);
@@ -252,8 +247,8 @@
 
             // Choose a different target size for each image, then cap both
             // dimensions so very wide/tall images fit without distortion.
-            const targetWidth = 90 + Math.random() * 190;
-            const targetHeight = 85 + Math.random() * 210;
+            const targetWidth = 150 + Math.random() * 170;
+            const targetHeight = Math.min(270, stageHeight * 0.38);
 
             image.addEventListener("load", () => {
                 const ratio = image.naturalWidth / image.naturalHeight || 1;
