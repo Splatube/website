@@ -202,7 +202,6 @@
         "img_10.png",
         "img_11.png",
         "img_12.png",
-        "img_13.png",
         "img_14.png",
         "img_15.png",
         "img_16.png",
@@ -219,6 +218,7 @@
         "img_27.png",
         "img_28.png",
         "img_29.png",
+        "img_30.png",
         "sigh.gif"
     ];
 
@@ -266,8 +266,8 @@
                     width = height * ratio;
                 }
 
-                frame.style.width = width + "px";
-                frame.style.height = height + "px";
+                frame.style.width = width*1.5 + "px";
+                frame.style.height = height*1.5 + "px";
                 frame.style.left = Math.max(0, Math.random() * (stageWidth - width)) + "px";
                 frame.style.top = (90 + Math.random() * Math.max(0, stageHeight - height - 90)) + "px";
             });
