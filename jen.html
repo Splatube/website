@@ -266,8 +266,8 @@
                     width = height * ratio;
                 }
 
-                frame.style.width = width*1.5 + "px";
-                frame.style.height = height*1.5 + "px";
+                frame.style.width = width + "px";
+                frame.style.height = height + "px";
                 frame.style.left = Math.max(0, Math.random() * (stageWidth - width)) + "px";
                 frame.style.top = (90 + Math.random() * Math.max(0, stageHeight - height - 90)) + "px";
             });
