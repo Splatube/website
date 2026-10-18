@@ -193,13 +193,15 @@
             if (!response.ok) throw new Error('Dynamic folder map not found.');
 
             // 2. Parse the text back into a native JavaScript array
-            const images = await response.json();
+            return await response.json();
 
         } catch (error) {
             console.error('Failed to retrieve file list dynamically:', error);
-            const images = [];
+            return [];
         }
     }
+
+    images = getWebsiteFolderFiles();
 
     const stage = document.getElementById("stage");
     const container = document.getElementById("img-container");
