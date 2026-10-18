@@ -192,72 +192,74 @@
     const stage = document.getElementById("stage");
     const container = document.getElementById("img-container");
 
-    let images = [];
-
-    function getWebsiteFolderFiles() {
-        try {
-            const response = fetch('/jen/list.txt');
-            if (!response.ok) throw new Error('Dynamic folder map not found.');
-
-            images = response.json();
-
-            console.log(images, images.length);
-
-        } catch (error) {
-            console.error('Failed to retrieve file list dynamically:', error);
-        }
-    }
-
     function placeImages() {
         container.replaceChildren();
         const stageWidth = stage.clientWidth;
         const stageHeight = stage.clientHeight;
+        let images = [];
 
-        images.forEach((src, index) => {
-            const frame = document.createElement("div");
-            frame.className = "img";
-            frame.id = "photo-" + (index + 1);
+        async function getWebsiteFolderFiles() {
+            try {
+                const response = await fetch('/jen/list.txt');
+                if (!response.ok) throw new Error('Dynamic folder map not found.');
 
-            console.log(src);
-            const image = document.createElement("img");
-            image.src = "jen/" + src;
-            image.alt = "";
-            image.loading = "lazy";
-            image.decoding = "async";
+                images = await response.json();
 
-            // Choose a different target size for each image, then cap both
-            // dimensions so very wide/tall images fit without distortion.
-            const targetWidth = 150 + Math.random() * 170;
-            const targetHeight = Math.min(270, stageHeight * 0.38);
+                console.log(images, images.length);
 
-            image.addEventListener("load", () => {
-                const ratio = image.naturalWidth / image.naturalHeight || 1;
-                let width = targetWidth;
-                let height = width / ratio;
+            } catch (error) {
+                console.error('Failed to retrieve file list dynamically:', error);
+            }
+        }
+        function addElements() {
+            images.forEach((src, index) => {
+                const frame = document.createElement("div");
+                frame.className = "img";
+                frame.id = "photo-" + (index + 1);
 
-                if (height > targetHeight) {
-                    height = targetHeight;
-                    width = height * ratio;
-                }
-                width = Math.min(width, Math.max(55, stageWidth * 0.42));
-                height = width / ratio;
-                if (height > targetHeight) {
-                    height = targetHeight;
-                    width = height * ratio;
-                }
+                console.log(src);
+                const image = document.createElement("img");
+                image.src = "jen/" + src;
+                image.alt = "";
+                image.loading = "lazy";
+                image.decoding = "async";
 
-                frame.style.width = width*1.5 + "px";
-                frame.style.height = height*1.5 + "px";
-                frame.style.left = Math.max(0, Math.random() * (stageWidth - width)) + "px";
-                frame.style.top = (90 + Math.random() * Math.max(0, stageHeight - height - 90)) + "px";
+                // Choose a different target size for each image, then cap both
+                // dimensions so very wide/tall images fit without distortion.
+                const targetWidth = 150 + Math.random() * 170;
+                const targetHeight = Math.min(270, stageHeight * 0.38);
+
+                image.addEventListener("load", () => {
+                    const ratio = image.naturalWidth / image.naturalHeight || 1;
+                    let width = targetWidth;
+                    let height = width / ratio;
+
+                    if (height > targetHeight) {
+                        height = targetHeight;
+                        width = height * ratio;
+                    }
+                    width = Math.min(width, Math.max(55, stageWidth * 0.42));
+                    height = width / ratio;
+                    if (height > targetHeight) {
+                        height = targetHeight;
+                        width = height * ratio;
+                    }
+
+                    frame.style.width = width * 1.5 + "px";
+                    frame.style.height = height * 1.5 + "px";
+                    frame.style.left = Math.max(0, Math.random() * (stageWidth - width)) + "px";
+                    frame.style.top = (90 + Math.random() * Math.max(0, stageHeight - height - 90)) + "px";
+                });
+
+                image.addEventListener("error", () => frame.remove());
+                frame.appendChild(image);
+                container.appendChild(frame);
             });
+        }
 
-            image.addEventListener("error", () => frame.remove());
-            frame.appendChild(image);
-            container.appendChild(frame);
-        });
+        getWebsiteFolderFiles().then(addElements);
     }
-    getWebsiteFolderFiles();
+
     placeImages();
     window.addEventListener("resize", placeImages);
 </script>
