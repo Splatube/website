@@ -195,13 +195,14 @@
         container.replaceChildren();
         const stageWidth = stage.clientWidth;
         const stageHeight = stage.clientHeight;
+        let images = [];
 
         async function getWebsiteFolderFiles() {
             try {
                 const response = await fetch('/jen/list.txt');
                 if (!response.ok) throw new Error('Dynamic folder map not found.');
 
-                const images = await response.json();
+                images = await response.json();
 
                 console.log(images, images.length);
 
