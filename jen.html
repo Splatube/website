@@ -216,10 +216,10 @@
         window.addEventListener('DOMContentLoaded', getWebsiteFolderFiles);
 
         // Shuffle the list so images don't always appear in the same order.
-        const shuffled = images.sort(() => {return 0.5 - Math.random()});
-        console.log(shuffled);
+        images.sort(function(){return 0.5 - Math.random()});
+        console.log(images);
 
-        shuffled.forEach((src, index) => {
+        images.forEach((src, index) => {
             const frame = document.createElement("div");
             frame.className = "img";
             frame.id = "photo-" + (index + 1);
