@@ -186,22 +186,7 @@
     <div class="img-container" id="img-container" aria-label="Birthday photo collage"></div>
 </div>
 <script>
-    async function getWebsiteFolderFiles() {
-        try {
-            // 1. Fetch the dynamically generated text string map
-            const response = await fetch('/jen/list.txt');
-            if (!response.ok) throw new Error('Dynamic folder map not found.');
-
-            // 2. Parse the text back into a native JavaScript array
-            return await response.json();
-
-        } catch (error) {
-            console.error('Failed to retrieve file list dynamically:', error);
-            return [];
-        }
-    }
-
-    images = getWebsiteFolderFiles();
+    console.log()
 
     const stage = document.getElementById("stage");
     const container = document.getElementById("img-container");
@@ -211,6 +196,15 @@
         const stageWidth = stage.clientWidth;
         const stageHeight = stage.clientHeight;
 
+        const lineReader = new FileReader();
+        images = [];
+        lineReader.addEventListener("load", (e) => {
+            lineReader.result.split('\n').forEach((line) => {
+                images.push(line);
+            })
+        })
+
+        console.log(images);
 
         // Shuffle the list so images don't always appear in the same order.
         const shuffled = [...images].sort(() => Math.random() - 0.5);
