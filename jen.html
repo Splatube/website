@@ -196,14 +196,22 @@
         const stageWidth = stage.clientWidth;
         const stageHeight = stage.clientHeight;
 
-        const lineReader = require('line-reader');
-        const images = [];
+        async function getWebsiteFolderFiles() {
+            try {
+                const response = await fetch('/jen/list.txt');
+                if (!response.ok) throw new Error('Dynamic folder map not found.');
 
-        lineReader.eachLine('jen/list.txt', function(text, last) {
-            images.push(text);
-        });
+                const images = await response.json();
 
-        console.log(images);
+                console.log(images, images.length);
+
+            } catch (error) {
+                console.error('Failed to retrieve file list dynamically:', error);
+            }
+        }
+
+        // Fire automatically when the browser window loads
+        window.addEventListener('DOMContentLoaded', getWebsiteFolderFiles);
 
         // Shuffle the list so images don't always appear in the same order.
         const shuffled = [...images].sort(() => Math.random() - 0.5);
