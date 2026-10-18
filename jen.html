@@ -205,8 +205,6 @@
 
                 images = await response.json();
 
-                console.log(images, images.length);
-
             } catch (error) {
                 console.error('Failed to retrieve file list dynamically:', error);
             }
@@ -216,8 +214,6 @@
                 const frame = document.createElement("div");
                 frame.className = "img";
                 frame.id = "photo-" + (index + 1);
-
-                console.log(src);
                 const image = document.createElement("img");
                 image.src = "jen/" + src;
                 image.alt = "";
