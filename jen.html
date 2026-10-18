@@ -196,13 +196,12 @@
         const stageWidth = stage.clientWidth;
         const stageHeight = stage.clientHeight;
 
-        const lineReader = new FileReader();
-        images = [];
-        lineReader.addEventListener("load", (e) => {
-            lineReader.result.split('\n').forEach((line) => {
-                images.push(line);
-            })
-        })
+        const lineReader = require('line-reader');
+        const images = [];
+
+        lineReader.eachLine('jen/list.txt', function(text, last) {
+            images.push(text);
+        });
 
         console.log(images);
 
